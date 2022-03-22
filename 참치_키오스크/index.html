@@ -13,9 +13,9 @@
         <div class="banner"></div>
         <div class="nav">
           <ul>
-            <li>전체 메뉴</li>
-            <li>오늘의 메뉴</li>
-            <li>베스트 메뉴</li>
+            <li id="all" onclick="changeAll()">전체 메뉴</li>
+            <li id="today" onclick="changeToday()">오늘의 메뉴</li>
+            <li id="best" onclick="changeBest()">베스트 메뉴</li>
           </ul>
         </div>
       </div>
@@ -63,7 +63,7 @@
               <h6>참다랑어 스페셜 세트</h6>
               <p>숙성 : <span>5일 숙성</span></p>
               <p>가격 : <span>32,000</span></p>
-              <a href="#" style="color: red">품절</a>
+              <a id="special" href="#" style="color: red">품절</a>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
       <div class="footer">
         <div class="order">
           <button type="button">결제하기</button>
-          <p>총 주문 금액 : <span>0</span></p>
+          <p>총 주문 금액 : <span id="cash">0</span></p>
         </div>
       </div>
     </div>
@@ -103,6 +103,30 @@
       '주문한 참치는 참다랑어 뱃살 8일 숙성 2개, 참다랑어 등살 3일 숙성1개 입니다.
       주문하시겠습니까?' 라는 confirm창 띄우기
       */
+      function changeAll() {
+          $('#all').css('background-color','#ffffff')
+          $('#all').css('color','#4e4e4e')
+          $('#today').css('background-color','#c24040')
+          $('#today').css('color','#fff')
+          $('#best').css('background-color','#c24040')
+          $('#best').css('color','#fff')
+      }
+      function changeToday() {
+        $('#all').css('background-color','#c24040')
+        $('#all').css('color','#fff')
+        $('#today').css('background-color','#ffffff')
+        $('#today').css('color','#4e4e4e')
+        $('#best').css('background-color','#c24040')
+        $('#best').css('color','#fff')
+      }
+      function changeBest() {
+        $('#all').css('background-color','#c24040')
+        $('#all').css('color','#fff')
+        $('#today').css('background-color','#c24040')
+        $('#today').css('color','#fff')
+        $('#best').css('background-color','#ffffff')
+        $('#best').css('color','#4e4e4e')
+      }
     </script>
   </body>
 </html>
