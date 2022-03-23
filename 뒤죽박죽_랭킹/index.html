@@ -46,28 +46,28 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1</td>
+                      <td class="rank">1</td>
                       <td>홍길동</td>
                       <td>Senior Javascript Developer</td>
                       <td>New York</td>
                       <td>2015/11/28</td>
                     </tr>
                     <tr>
-                      <td>2</td>
+                      <td class="rank">2</td>
                       <td>이지은</td>
                       <td>Software Engineer</td>
                       <td>San Francisco</td>
                       <td>2020/06/15</td>
                     </tr>
                     <tr>
-                      <td>3</td>
+                      <td class="rank">3</td>
                       <td>현상원</td>
                       <td>Chief Executive Officer (CEO)</td>
                       <td>San Francisco</td>
                       <td>2022/01/01</td>
                     </tr>
                     <tr>
-                      <td>4</td>
+                      <td class="rank">4</td>
                       <td>손흥민</td>
                       <td>Junior Javascript Developer</td>
                       <td>London</td>
@@ -134,7 +134,23 @@
         $('#hiredate').focus()
         return false
        }
-  }
+       array = ['New York','San Francisco','London']
+       console.log(loc)
+       for(var i=0; i<array.length;i++){
+         if(array[0]===loc){
+           return false
+          }
+          if(array[1]===loc){
+            return false
+          }
+          if(array[2]===loc){
+            return false
+          }
+          $('#loc').val('')
+          $('#loc').focus()
+        }
+
+      }
     </script>
   </body>
 </html>
