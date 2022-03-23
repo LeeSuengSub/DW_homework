@@ -13,9 +13,9 @@
         <div class="banner"></div>
         <div class="nav">
           <ul>
-            <li id="all" onclick="changeAll()">전체 메뉴</li>
-            <li id="today" onclick="changeToday()">오늘의 메뉴</li>
-            <li id="best" onclick="changeBest()">베스트 메뉴</li>
+            <li id="all">전체 메뉴</li>
+            <li id="today">오늘의 메뉴</li>
+            <li id="best">베스트 메뉴</li>
           </ul>
         </div>
       </div>
@@ -26,7 +26,7 @@
             <div class="menu-info">
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>8일 숙성</span></p>
-              <p>가격 : <span>22,000</span></p>
+              <p>가격 : <span id="tuna">22,000</span></p>
               <a href="#">담기</a>
             </div>
           </div>
@@ -70,7 +70,7 @@
       </div>
       <div class="footer">
         <div class="order">
-          <button type="button">결제하기</button>
+          <button type="button" onclick="payment()">결제하기</button>
           <p>총 주문 금액 : <span id="cash">0</span></p>
         </div>
       </div>
@@ -103,30 +103,15 @@
       '주문한 참치는 참다랑어 뱃살 8일 숙성 2개, 참다랑어 등살 3일 숙성1개 입니다.
       주문하시겠습니까?' 라는 confirm창 띄우기
       */
-      function changeAll() {
-          $('#all').css('background-color','#ffffff')
-          $('#all').css('color','#4e4e4e')
-          $('#today').css('background-color','#c24040')
-          $('#today').css('color','#fff')
-          $('#best').css('background-color','#c24040')
-          $('#best').css('color','#fff')
-      }
-      function changeToday() {
-        $('#all').css('background-color','#c24040')
-        $('#all').css('color','#fff')
-        $('#today').css('background-color','#ffffff')
-        $('#today').css('color','#4e4e4e')
-        $('#best').css('background-color','#c24040')
-        $('#best').css('color','#fff')
-      }
-      function changeBest() {
-        $('#all').css('background-color','#c24040')
-        $('#all').css('color','#fff')
-        $('#today').css('background-color','#c24040')
-        $('#today').css('color','#fff')
-        $('#best').css('background-color','#ffffff')
-        $('#best').css('color','#4e4e4e')
-      }
+      $(".nav li").on("click", function () {
+      $(".nav li").css('color', '#fff'), $(".nav li").css('background-color', '#c24040');
+      $(this).css('color', '#4e4e4e'), $(this).css('background-color', '#ffffff');
+    });
+
+    
+    $('.nav ul li').on('click',function(e){
+      console.log(e);
+    })
     </script>
   </body>
 </html>
