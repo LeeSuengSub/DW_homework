@@ -27,7 +27,7 @@
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>8일 숙성</span></p>
               <p>가격 : <span class="tuna">22,000</span></p>
-              <a href="#">담기</a>
+              <a id="tuna-1" href="#">담기</a>
             </div>
           </div>
           <div class="menu">
@@ -36,7 +36,7 @@
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>2일 숙성</span></p>
               <p>가격 : <span class="tuna">10,000</span></p>
-              <a href="#">담기</a>
+              <a id="tuna-2" href="#">담기</a>
             </div>
           </div>
           <div class="menu">
@@ -45,7 +45,7 @@
               <h6>참다랑어 등살</h6>
               <p>숙성 : <span>3일 숙성</span></p>
               <p>가격 : <span class="tuna">12,000</span></p>
-              <a href="#">담기</a>
+              <a id="tuna-3" href="#">담기</a>
             </div>
           </div>
           <div class="menu">
@@ -54,7 +54,7 @@
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>5일 숙성</span></p>
               <p>가격 : <span class="tuna">16,000</span></p>
-              <a href="#">담기</a>
+              <a id="tuna-4" href="#">담기</a>
             </div>
           </div>
           <div class="menu">
@@ -63,7 +63,7 @@
               <h6>참다랑어 스페셜 세트</h6>
               <p>숙성 : <span>5일 숙성</span></p>
               <p>가격 : <span class="tuna">32,000</span></p>
-              <a id="special" href="#" style="color: red">품절</a>
+              <a id="tuna-5" href="#" style="color: red">품절</a>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
     var intSelec = Number(selec)
     var intTuna = Number(tuna)
     intSelec+=intTuna
-    console.log(intSelec)
+    // console.log(intSelec)
 
     console.log($('#cash'))
 
@@ -126,14 +126,43 @@
         alert('메뉴를 선택해주세요')
       }
       //4번 문제.
-      if($('#cash')[0].innerHTML.length < 6){
+      if($('#cash')[0].innerHTML.length > 6){
         alert('금액이 초과하였습니다.')
     }
   }
   //5번 문제.
-    $('#special').on('click',function(){
+    $('#tuna-5').on('click',function(){
       alert('죄송합니다. 참다랑어 세트는 품절입니다.')
     })
+
+    //2번 문제. 남은것: 가격 더하기, 콤마(,)찍기
+    var len = $('.menu').length
+    var tunaPrice0 = Number($('#cash')[0].innerHTML)
+    $('#tuna-1').on('click',function(){
+          $('#cash')[0].innerHTML = $('.tuna')[0].innerText.replace(',','')
+          var tunaPrice1 = Number($('#cash')[0].innerHTML)
+          $('#cash').show(tunaPrice1)
+    })
+
+    $('#tuna-2').on('click',function(){
+      $('#cash')[0].innerHTML = $('.tuna')[1].innerText.replace(',','')
+      var tunaPrice2 = Number($('#cash')[0].innerHTML)
+          $('#cash').show(tunaPrice2)
+    })
+
+    $('#tuna-3').on('click',function(){
+      $('#cash')[0].innerHTML = $('.tuna')[2].innerText.replace(',','')
+      var tunaPrice3 = Number($('#cash')[0].innerHTML)
+          $('#cash').show(tunaPrice3)
+    })
+
+    $('#tuna-4').on('click',function(){
+      $('#cash')[0].innerHTML = $('.tuna')[3].innerText.replace(',','')
+      var tunaPrice4 = Number($('#cash')[0].innerHTML)
+      $('#cash').show(tunaPrice4)
+    })
+
+    // $('#cash').append($('.tuna')[0].innerHTML)
     </script>
   </body>
 </html>
