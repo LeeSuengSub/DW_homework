@@ -26,7 +26,7 @@
             <div class="menu-info">
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>8일 숙성</span></p>
-              <p>가격 : <span id="tuna">22,000</span></p>
+              <p>가격 : <span class="tuna">22,000</span></p>
               <a href="#">담기</a>
             </div>
           </div>
@@ -35,7 +35,7 @@
             <div class="menu-info">
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>2일 숙성</span></p>
-              <p>가격 : <span>10,000</span></p>
+              <p>가격 : <span class="tuna">10,000</span></p>
               <a href="#">담기</a>
             </div>
           </div>
@@ -44,7 +44,7 @@
             <div class="menu-info">
               <h6>참다랑어 등살</h6>
               <p>숙성 : <span>3일 숙성</span></p>
-              <p>가격 : <span>12,000</span></p>
+              <p>가격 : <span class="tuna">12,000</span></p>
               <a href="#">담기</a>
             </div>
           </div>
@@ -53,7 +53,7 @@
             <div class="menu-info">
               <h6>참다랑어 뱃살</h6>
               <p>숙성 : <span>5일 숙성</span></p>
-              <p>가격 : <span>16,000</span></p>
+              <p>가격 : <span class="tuna">16,000</span></p>
               <a href="#">담기</a>
             </div>
           </div>
@@ -62,7 +62,7 @@
             <div class="menu-info">
               <h6>참다랑어 스페셜 세트</h6>
               <p>숙성 : <span>5일 숙성</span></p>
-              <p>가격 : <span>32,000</span></p>
+              <p>가격 : <span class="tuna">32,000</span></p>
               <a id="special" href="#" style="color: red">품절</a>
             </div>
           </div>
@@ -108,9 +108,31 @@
       $(this).css('color', '#4e4e4e'), $(this).css('background-color', '#ffffff');
     });
 
-    
-    $('.nav ul li').on('click',function(e){
-      console.log(e);
+
+    var selec = $('#cash')[0].innerText
+    console.log($('.tuna').children())
+    var tuna = $('.tuna')[0].innerText.replace(',','')
+
+    var intSelec = Number(selec)
+    var intTuna = Number(tuna)
+    intSelec+=intTuna
+    console.log(intSelec)
+
+    console.log($('#cash'))
+
+    function payment() {
+      //3번 문제.
+      if($('#cash')[0].innerHTML.length==1){
+        alert('메뉴를 선택해주세요')
+      }
+      //4번 문제.
+      if($('#cash')[0].innerHTML.length < 6){
+        alert('금액이 초과하였습니다.')
+    }
+  }
+  //5번 문제.
+    $('#special').on('click',function(){
+      alert('죄송합니다. 참다랑어 세트는 품절입니다.')
     })
     </script>
   </body>
