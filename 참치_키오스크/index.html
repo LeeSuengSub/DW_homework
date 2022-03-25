@@ -104,75 +104,79 @@
       주문하시겠습니까?' 라는 confirm창 띄우기
       */
 
-     //1번 문제.
+      //1번 문제.
       $(".nav li").on("click", function () {
-      $(".nav li").css('color', '#fff'), $(".nav li").css('background-color', '#c24040');
-      $(this).css('color', '#4e4e4e'), $(this).css('background-color', '#ffffff');
-    });
+        $(".nav li").css("color", "#fff"),
+          $(".nav li").css("background-color", "#c24040");
+        $(this).css("color", "#4e4e4e"),
+          $(this).css("background-color", "#ffffff");
+      });
 
-    //2번 문제. 남은것: 콤마(,)찍기
-    var total = Number($('#cash')[0].innerHTML)
-    var orderMenu = 0
-    $('#tuna-1').on('click',function(){
-          $('#cash')[0].innerHTML = $('.tuna')[0].innerText.replace(',','')
-          orderMenu += Number($('#cash')[0].innerHTML)
-          $('#cash')[0].innerHTML = orderMenu + total
-          return false
-    })
+      //2번 문제. 남은것: 콤마(,)찍기
+      var total = Number($("#cash")[0].innerHTML);
+      var orderMenu = 0;
+      $("#tuna-1").on("click", function () {
+        $("#cash")[0].innerHTML = $(".tuna")[0].innerText.replace(",", "");
+        orderMenu += Number($("#cash")[0].innerHTML);
+        $("#cash")[0].innerHTML = orderMenu + total;
+        return false;
+      });
 
-    $('#tuna-2').on('click',function(){
-      $('#cash')[0].innerHTML = $('.tuna')[1].innerText.replace(',','')
-      orderMenu += Number($('#cash')[0].innerHTML)
-      $('#cash')[0].innerHTML = orderMenu + total
-      return false
-    })
+      $("#tuna-2").on("click", function () {
+        $("#cash")[0].innerHTML = $(".tuna")[1].innerText.replace(",", "");
+        orderMenu += Number($("#cash")[0].innerHTML);
+        $("#cash")[0].innerHTML = orderMenu + total;
+        return false;
+      });
 
-    $('#tuna-3').on('click',function(){
-      $('#cash')[0].innerHTML = $('.tuna')[2].innerText.replace(',','')
-      orderMenu += Number($('#cash')[0].innerHTML)
-          $('#cash')[0].innerHTML = orderMenu + total
-          return false
-    })
+      $("#tuna-3").on("click", function () {
+        $("#cash")[0].innerHTML = $(".tuna")[2].innerText.replace(",", "");
+        orderMenu += Number($("#cash")[0].innerHTML);
+        $("#cash")[0].innerHTML = orderMenu + total;
+        return false;
+      });
 
-    $('#tuna-4').on('click',function(){
-      $('#cash')[0].innerHTML = $('.tuna')[3].innerText.replace(',','')
-      orderMenu += Number($('#cash')[0].innerHTML)
-          $('#cash')[0].innerHTML = orderMenu + total
-          return false
-      })
+      $("#tuna-4").on("click", function () {
+        $("#cash")[0].innerHTML = $(".tuna")[3].innerText.replace(",", "");
+        orderMenu += Number($("#cash")[0].innerHTML);
+        $("#cash")[0].innerHTML = orderMenu + total;
+        return false;
+      });
 
       function payment() {
         //3번 문제.
-        if($('#cash')[0].innerHTML==='0'){
-          alert('메뉴를 선택해주세요')
-          return false
-          }
+        if ($("#cash")[0].innerHTML === "0") {
+          alert("메뉴를 선택해주세요");
+          return false;
         }
+      }
 
-         //4번 문제.
-         $('.menu a').on('click',function(){
-           if($('#cash')[0].innerHTML > 99000){
-             alert('총 주문금액을 초과하였습니다.')
+      //4번 문제.
+      $(".menu a").on("click", function () {
+        if ($("#cash")[0].innerHTML > 99000) {
+          alert("총 주문금액을 초과하였습니다.");
 
-             $('.menu a').off('click')
-            }if($('#cash')[0].innerHTML > 87000){
-              $('#tuna-1').off('click')
-            }if($('#cash')[0].innerHTML > 89000){
-              $('#tuna-2').off('click')
-            }if($('#cash')[0].innerHTML > 95000){
-              $('#tuna-3').off('click')
-            }if($('#cash')[0].innerHTML > 85000){
-              $('#tuna-4').off('click')
-            }
+          $(".menu a").off("click");
+        }
+        if ($("#cash")[0].innerHTML > 87000) {
+          $("#tuna-1").off("click");
+        }
+        if ($("#cash")[0].innerHTML > 89000) {
+          $("#tuna-2").off("click");
+        }
+        if ($("#cash")[0].innerHTML > 95000) {
+          $("#tuna-3").off("click");
+        }
+        if ($("#cash")[0].innerHTML > 85000) {
+          $("#tuna-4").off("click");
+        }
+      });
 
-          })
-
-        //5번 문제.
-        $('#tuna-5').on('click',function(){
-          alert('죄송합니다. 참다랑어 세트는 품절입니다.')
-          return false
-        })
-
+      //5번 문제.
+      $("#tuna-5").on("click", function () {
+        alert("죄송합니다. 참다랑어 세트는 품절입니다.");
+        return false;
+      });
     </script>
   </body>
 </html>
