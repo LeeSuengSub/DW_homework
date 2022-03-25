@@ -103,66 +103,66 @@
       '주문한 참치는 참다랑어 뱃살 8일 숙성 2개, 참다랑어 등살 3일 숙성1개 입니다.
       주문하시겠습니까?' 라는 confirm창 띄우기
       */
+
+     //1번 문제.
       $(".nav li").on("click", function () {
       $(".nav li").css('color', '#fff'), $(".nav li").css('background-color', '#c24040');
       $(this).css('color', '#4e4e4e'), $(this).css('background-color', '#ffffff');
     });
 
-
-    var selec = $('#cash')[0].innerText
-    console.log($('.tuna').children())
-    var tuna = $('.tuna')[0].innerText.replace(',','')
-
-    var intSelec = Number(selec)
-    var intTuna = Number(tuna)
-    intSelec+=intTuna
-    // console.log(intSelec)
-
-    console.log($('#cash'))
-
-    function payment() {
-      //3번 문제.
-      if($('#cash')[0].innerHTML.length==1){
-        alert('메뉴를 선택해주세요')
-      }
-      //4번 문제.
-      if($('#cash')[0].innerHTML.length > 6){
-        alert('금액이 초과하였습니다.')
-    }
-  }
-  //5번 문제.
-    $('#tuna-5').on('click',function(){
-      alert('죄송합니다. 참다랑어 세트는 품절입니다.')
-    })
-
-    //2번 문제. 남은것: 가격 더하기, 콤마(,)찍기
-    var len = $('.menu').length
-    var tunaPrice0 = Number($('#cash')[0].innerHTML)
+    //2번 문제. 남은것: 콤마(,)찍기
+    var total = Number($('#cash')[0].innerHTML)
+    var orderMenu = 0
     $('#tuna-1').on('click',function(){
           $('#cash')[0].innerHTML = $('.tuna')[0].innerText.replace(',','')
-          var tunaPrice1 = Number($('#cash')[0].innerHTML)
-          $('#cash').show(tunaPrice1)
+          orderMenu += Number($('#cash')[0].innerHTML)
+          $('#cash')[0].innerHTML = orderMenu + total
+          return false
     })
 
     $('#tuna-2').on('click',function(){
       $('#cash')[0].innerHTML = $('.tuna')[1].innerText.replace(',','')
-      var tunaPrice2 = Number($('#cash')[0].innerHTML)
-          $('#cash').show(tunaPrice2)
+      orderMenu += Number($('#cash')[0].innerHTML)
+      $('#cash')[0].innerHTML = orderMenu + total
+      return false
     })
 
     $('#tuna-3').on('click',function(){
       $('#cash')[0].innerHTML = $('.tuna')[2].innerText.replace(',','')
-      var tunaPrice3 = Number($('#cash')[0].innerHTML)
-          $('#cash').show(tunaPrice3)
+      orderMenu += Number($('#cash')[0].innerHTML)
+          $('#cash')[0].innerHTML = orderMenu + total
+          return false
     })
 
     $('#tuna-4').on('click',function(){
       $('#cash')[0].innerHTML = $('.tuna')[3].innerText.replace(',','')
-      var tunaPrice4 = Number($('#cash')[0].innerHTML)
-      $('#cash').show(tunaPrice4)
-    })
+      orderMenu += Number($('#cash')[0].innerHTML)
+          $('#cash')[0].innerHTML = orderMenu + total
+          return false
+      })
 
-    // $('#cash').append($('.tuna')[0].innerHTML)
+      function payment() {
+        //3번 문제.
+        if($('#cash')[0].innerHTML==='0'){
+          alert('메뉴를 선택해주세요')
+          return false
+          }
+        }
+
+         //4번 문제.
+         $('.menu a').on('click',function(){
+           if($('#cash')[0].innerHTML >= 100000){
+          alert('금액이 초과하였습니다.')
+          return false
+      }
+          })
+
+        //5번 문제.
+        $('#tuna-5').on('click',function(){
+          alert('죄송합니다. 참다랑어 세트는 품절입니다.')
+          return false
+        })
+
     </script>
   </body>
 </html>
