@@ -151,10 +151,20 @@
 
          //4번 문제.
          $('.menu a').on('click',function(){
-           if($('#cash')[0].innerHTML >= 100000){
-          alert('금액이 초과하였습니다.')
-          return false
-      }
+           if($('#cash')[0].innerHTML > 99000){
+             alert('총 주문금액을 초과하였습니다.')
+
+             $('.menu a').off('click')
+            }if($('#cash')[0].innerHTML > 87000){
+              $('#tuna-1').off('click')
+            }if($('#cash')[0].innerHTML > 89000){
+              $('#tuna-2').off('click')
+            }if($('#cash')[0].innerHTML > 95000){
+              $('#tuna-3').off('click')
+            }if($('#cash')[0].innerHTML > 85000){
+              $('#tuna-4').off('click')
+            }
+
           })
 
         //5번 문제.
