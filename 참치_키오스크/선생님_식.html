@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상원참치</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="banner"></div>
+        <div class="nav">
+          <ul>
+            <li>전체 메뉴</li>
+            <li>오늘의 메뉴</li>
+            <li>베스트 메뉴</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="menu-wrapper">
+          <div class="menu">
+            <img src="image/img_con01.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>8일 숙성</span></p>
+              <p>가격 : <span>22,000</span></p>
+              <a id="fattyTuna8" href="#">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con02.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>2일 숙성</span></p>
+              <p>가격 : <span>10,000</span></p>
+              <a id="fattyTuna2" href="#">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con03.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 등살</h6>
+              <p>숙성 : <span>3일 숙성</span></p>
+              <p>가격 : <span>12,000</span></p>
+              <a id="bestPartOfRed3" href="#">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con04.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>5일 숙성</span></p>
+              <p>가격 : <span>16,000</span></p>
+              <a id="fattyTuna5" href="#">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con06.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 스페셜 세트</h6>
+              <p>숙성 : <span>5일 숙성</span></p>
+              <p>가격 : <span>32,000</span></p>
+              <a id="specialSet" href="#" style="color: red">품절</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="order">
+          <button type="button" id="order">결제하기</button>
+          <p>총 주문 금액 : <span id="totalMoney">0</span></p>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      /* 1번 문제: 전체 메뉴, 오늘의 메뉴, 베스트 메뉴를 클릭하게 되면
+      클릭한 메뉴에 아래 css를 적용할 것
+      background-color: #ffffff;
+      color: #4e4e4e; */
+      $('.nav ul li').on('click',function(e){
+        var elementInnerHTML = e.target.innerHTML;// 내가 클릭한 메뉴!
+        $('.nav ul li').each(function(index, item){
+          var menuName = $(item).text();
+          if(elementInnerHTML === menuName){ //내가 선택한 메뉴이름과 기존 메뉴이름이 같다면
+            $(item).css('backgroundColor', '#ffffff');
+            $(item).css('color', '#4e4e4e');
+          }
+          if(elementInnerHTML !== menuName){
+            $(item).css('backgroundColor', '#c24040');
+            $(item).css('color', '#fff');
+          }
+        });
+      });
+      /*
+      2번 문제: 메뉴 담기를 클릭하면 총 주문 금액에 가격 표기할 것
+      단, 참다랑어 세트는 품절이기 때문에 총 주문 금액에 포함될 수 없다.
+      ~
+      4번 문제: 총 주문 금액은 10만원을 넘을 수 없다.
+      5번 문제: 참다랑어 세트를 클릭하면 
+      '죄송합니다. 참다랑어 세트는 품절입니다.'라는 alert창 띄우기
+      */  
+      var menuArray = new Array();//전역 배열 변수
+      $('.menu-info a').on('click',function(e){
+        e.preventDefault(); //기본으로 정의된 이벤트(href)를 작동하지 못하게 하는 메소드
+        var elementInnerText = e.target.innerText;
+        if(elementInnerText === '품절'){
+          alert('죄송합니다. 참다랑어 세트는 품절입니다.');
+          return false;
+        }
+        var elementId = e.target.id;
+        setTotalMoney(elementId);
+      });
+      var sumMoney = 0;//전역 변수
+      //총 주문 금액계산 함수
+      function setTotalMoney(elementId){
+        //수정 필요
+        var elementChildrenInnerText = $('#'+elementId).prev()[0].children[0].innerText;
+        var money = Number(elementChildrenInnerText.replace(",","")); //Number() : 문자에서 숫자로 변환
+        if((sumMoney + money) <= 100000){
+          sumMoney += money;
+          $('#totalMoney').text(sumMoney);
+          setMenuArray(elementId);
+        }
+      }
+      //선택한 메뉴 배열에 담기
+      function setMenuArray(elementId){
+        var menu = $('#'+elementId).parent().children()[0].innerText;
+        var days = $('#'+elementId).parent().children().children()[0].innerText;
+        var menuName = menu+days;
+        menuArray.push(menuName);
+      }
+      //최종 선택한 메뉴 보여주기
+      function getMenuArray(){
+        /* 
+          reduce에는 4가지 파라미터(인수, 인자값, 매개변수)를 가짐
+          accumulator : 반환값을 누적
+          currentValue : 처리할 현재 요소
+          currentIndex (Optional) : 현재 요소의 인덱스
+          array(Optional) : reduce()를 호출한 배열
+        */
+        //acc : 누적값, cur : 현재값
+        const result = menuArray.reduce(function(acc, cur){
+          console.log(acc);
+          console.log('cur => '+cur);
+          if(acc[cur]) {//중복 선택한 메뉴는 카운팅
+              acc[cur]++;
+          }else {
+              acc[cur]=1;
+          }
+          return acc;
+        },{}); // {} : initialValue
+        return result;
+      }
+      /* 3번 문제: 결제하기를 눌렀을 때 총 주문 금액이 0원 이면 
+      '메뉴를 선택하세요!'라는 alert창 띄우기
+        ~
+       6번 문제: 모든 조건을 만족하면 
+      '주문한 참치는 참다랑어 뱃살 8일 숙성 2개, 참다랑어 등살 3일 숙성1개 입니다.
+      주문하시겠습니까?' 라는 confirm창 띄우기
+      */
+      $('#order').on('click',function(){
+        var money = $('#totalMoney').text();
+        if(money == 0){
+          alert('메뉴를 선택하세요!');
+          return false
+        }
+        var selectedMenu = '';
+        var result = getMenuArray();
+        var keys = Object.keys(result); //json 키를 가져옴.
+        keys.forEach(function(element){
+          selectedMenu += element+' '+result[element]+'개 ' 
+        });
+        confirm('주문한 참치는 '+selectedMenu+'입니다. 주문하시겠습니까?');
+      });
+    </script>
+  </body>
+</html>
