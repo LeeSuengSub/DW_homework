@@ -3,5 +3,18 @@
 let array = [1, 10, 4, 3, 5];
 let count = 0; //총 몇회전 했는지 알아내는 변수
 
+let len = array.length;
+let temp = 0;
+for (let i = 0; i < len; i++) {
+  for (let j = 0; j < len - 1; j++) {
+    if (array[i] < array[j]) {
+      ++count;
+      temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+}
+
 console.log(array);
 console.log(count);
