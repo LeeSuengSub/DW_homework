@@ -39,10 +39,10 @@
         />
         <div class="question-box">
           <span>회원가입에 동의하나요?</span>
-          <input type="checkbox" />
+          <input id="checkbox" type="checkbox" />
         </div>
         <div class="join-btn">
-          <button type="button">회원 가입</button>
+          <button id="button" type="button">회원 가입</button>
         </div>
       </div>
     </div>
@@ -67,6 +67,132 @@
         모든 조건을 만족하고 회원가입 버튼을 누르면
         input데이터를 json으로 만들어 console.log에 출력하시오.
       */
+    $('#button').on('click',function(){
+      var userName = $("#Name").val()
+    var userNickName = $("#Nickname").val()
+    var userEmail = $("#email").val()
+    var userEmailList = $("#emailList").val()
+    var userNumber = $("#call").val().replace("-","").replace("-","")
+    console.log($(".form-wrapper").children())  
+    var len = $(".form-wrapper").children().length
+      if(userName === "" || !CheckName(userName)){
+        alert('이름을 입력해주세요!')
+        console.log('한글입력')
+        $("#Name").focus();
+        return 0;
+      }
+      if(userName.length > 20){
+        alert('길이가 초과되었습니다.')
+        return 0;
+      }
+      if(userNickName === "" || !CheckNickName(userNickName)){
+        alert('닉네임을 입력해주세요!')
+        console.log('한글을 입력해주세요~')
+        $("#Nickname").focus();
+        return 0;
+      }
+      if(userNickName.length > 20){
+        alert('길이를 초과하였습니다.')
+        return 0;
+      }
+      if(userEmail === ""){
+        alert('이메일을 입력해주세요.')
+        $("#email").focus();
+        return 0;
+      }
+      if(userEmailList === 'none'){
+        alert('이메일 리스트를 선택해주세요.')
+        return 0;
+      }
+      if(userNumber === ""){
+        alert('핸드폰 번호를 입력해주세요.')
+        $("#call").focus();
+        return 0;
+      }
+      if ($('#checkbox').is(":checked")===false){ 
+        alert("체크박스를 확인해주세요.");
+         $("#checkbox").focus();
+          return 0; 
+        }
+      console.log(submitData)
+    }
+  )
+
+  function CheckName(name){
+    var regName = 	/^[가-힣]+$/;
+    var isName = regName.test(name);
+    return isName
+  }
+
+  function CheckNickName(nickName){
+    var regNickName = /^[가-힣]+$/; 
+    var isNickName = regNickName.test(nickName);
+    return isNickName
+  }
+  function submitData(data){
+    var jsonData= {};
+    jsonData.userName =  $("#name").val();
+    jsonData.userNickName = $("#nickName").val();
+    jsonData.userEmail = $("#email").val();
+    jsonData.userNumber = $("#number").val().replace("-","").replace("-","");
+    console.log(jsonData);
+  }
+
+  // input의 양이 많으면 for문을 사용해라.
+  // 선생님 식
+  
+  $('#button').click(function(){
+    var jsonParam = {};
+    jsonParam.phone = '010';
+    var elementID = 'iphone';
+    var money = 1000;
+    // jsonParam.elementID = '010';
+    jsonParam[elementID] = '010';//json에 elementID를 iphone으로 바꾸는 방법.
+    jsonParam = {phone : '010', elementID : '010'}
+
+
+    var formWrapper = $('.form-wrapper').children();
+    console.log($('.form-wrapper').children())
+    for(var i=1; i<formWrapper.length;i++){
+      var elementID = formWrapper[i].id;
+      var elementValue = '';
+      if(formWrapper[i].nodeName === 'INPUT' ){
+        var element = $('#'+elementID).val();
+        if(elementValue === ''){
+          alert('내용을 입력해주세요!')
+          $('#'+elementID).focus();
+          return false
+        }
+      }
+      if((formWrapper[i].id === 'Name'|| formWrapper[i].id === 'Nickname')
+      && elementValue.length >= 20){
+        alert('20글자 제한');
+        return false;
+      }
+      if((formWrapper[i].id === 'Name'||formWrapper[i].id === "Nickname")){
+        //정규표현식 한글 로직 추가
+        return false;
+      }
+      if(formWrapper[i].id === 'call'){
+        elementValue = elementValue
+      }
+      var email = $('#email').val().trim();
+      if(email === ''){
+        alert('내용을 입력해주세요.');
+        $('#email').focus();
+        return false
+      }
+      var emailCompany = $('#emailList option:selected').val();
+      if(emailCompany === 'none'){
+        alert('내용을 확인해주세요.');
+        $('#emailList').focus();
+        return false
+      }
+      jsonParam.email = email+'@'+emailCompany;
+      console.log('hello World');
+      doJoin(jsonParam);
+    }
+  })
     </script>
   </body>
 </html>
