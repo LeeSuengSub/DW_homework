@@ -11,9 +11,9 @@
     <div class="container">
       <div class="form-wrapper">
         <h3>스똬벅스 회원가입</h3>
-        <input id="Name" type="" placeholder="회원이름을 입력해주세요..." />
+        <input id="name" type="" placeholder="회원이름을 입력해주세요..." />
         <input
-          id="Nickname"
+          id="nickName"
           type=""
           placeholder="사용할 닉네임을 입력해주세요..."
         />
@@ -68,8 +68,8 @@
         input데이터를 json으로 만들어 console.log에 출력하시오.
       */
       $("#button").on("click", function () {
-        var userName = $("#Name").val();
-        var userNickName = $("#Nickname").val();
+        var userName = $("#name").val();
+        var userNickName = $("#nickName").val();
         var userEmail = $("#email").val();
         var userEmailList = $("#emailList").val();
         var userNumber = $("#call").val().replace("-", "").replace("-", "");
@@ -77,8 +77,8 @@
         var len = $(".form-wrapper").children().length;
         if (userName === "" || !CheckName(userName)) {
           alert("이름을 입력해주세요!");
-          console.log("한글입력");
-          $("#Name").focus();
+          console.log("한글을 입력해주세요.");
+          $("#name").focus();
           return false;
         }
         if (userName.length > 20) {
@@ -87,8 +87,8 @@
         }
         if (userNickName === "" || !CheckNickName(userNickName)) {
           alert("닉네임을 입력해주세요!");
-          console.log("한글을 입력해주세요~");
-          $("#Nickname").focus();
+          console.log("한글을 입력해주세요.");
+          $("#nickName").focus();
           return false;
         }
         if (userNickName.length > 20) {
@@ -114,7 +114,13 @@
           $("#checkbox").focus();
           return false;
         }
-        console.log(submitData);
+        // json 나타내는 방법.
+        var jsonData = {};
+        jsonData.userName = userName;
+        jsonData.userNickName = userNickName;
+        jsonData.userEmail = userEmail+'@'+userEmailList
+        jsonData.userNumber = userNumber
+        console.log(jsonData);
       });
 
       function CheckName(name) {
@@ -128,17 +134,7 @@
         var isNickName = regNickName.test(nickName);
         return isNickName;
       }
-      function submitData(data) {
-        var jsonData = {};
-        jsonData.userName = $("#name").val();
-        jsonData.userNickName = $("#nickName").val();
-        jsonData.userEmail = $("#email").val();
-        jsonData.userNumber = $("#number")
-          .val()
-          .replace("-", "")
-          .replace("-", "");
-        console.log(jsonData);
-      }
+
     </script>
   </body>
 </html>
