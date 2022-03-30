@@ -33,6 +33,7 @@
           </select>
         </div>
         <input
+        id="call"
           type="text"
           placeholder="연락처를 입력해주세요...(번호만 입력하세요)"
         />
@@ -67,44 +68,57 @@
       var formWrapper = $(".form-wrapper").children();
       var len = formWrapper.length;
       $("button").on("click", function () {
-        for (var i = 0; i < len; i++) {
+        for (var i = 1; i < len; i++) {
           var id = formWrapper[i].id;
-          var value = "";
-          if (formWrapper[i].nodeName === "INPUT") {
-            //var element = $("#" + id).val();
+          var value = ''
+          if (formWrapper[i].localName === "input") {
+            value = $('#'+id).val()
             if (value === "") {
-              alert("내용을 확인해주세요!");
-              $("#" + id).focus();
+              alert("빈칸이 있는지 확인해주세요!");
+              $("#"+formWrapper[i].id).focus();
               return false;
             }
+            if (
+              (formWrapper[i].id === "name" ||
+              formWrapper[i].id === "nickName") &&
+            value.length >= 20
+            ) {
+              alert("글자수를 초과하였습니다.");
+            return false
           }
           if (
             (formWrapper[i].id === "name" ||
               formWrapper[i].id === "nickName") &&
-            value >= 20
-          ) {
-            alert("글자수를 초과하였습니다.");
-          }
-          if (
-            (formWrapper[i].id === "name" ||
-              formWrapper[i].id === "nickName") &&
-            !checkName(name)
+              !checkName(value)
           ) {
             alert("한글로 입력해주세요.");
+            return false
           }
-          var email = $("#email").val().trim();
-          if (email === "") {
+        }
+        var email = $("#email").val().trim();
+        if (email === "") {
             alert("내용을 입력해주세요.");
             $("#email").focus();
             return false;
           }
           var emailList = $("#emailList option:selected").val();
-          if (enailList === "none") {
-            alert("선택해주세요.");
+          if (emailList === "none") {
+            alert("회사를 선택해주세요.");
             $("#emailList").focus();
             return false;
           }
+          var call = $('#call').val()
+          if(call === ''){
+            alert('경고');
+            $('#call').focus()
+            return false
+          }
+          if ($("#checkbox").is(":checked") === false) {
+          alert("체크박스를 확인해주세요.");
+          $("#checkbox").focus();
+          return false;
         }
+      }
       });
       function checkName(name) {
         var regex = /^[가-힣]+$/;
