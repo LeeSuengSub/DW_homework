@@ -18,9 +18,8 @@ SELECT * FROM restaurant WHERE foodNo = 30 AND restaurantName= '빠스타스';
 레스토랑 테이블에서 위에 작성한 select쿼리 호출 시간이 오래 걸리기 시작했다.
 가장 먼저해야하는 바람직한 행동은?
 
-답안 작성 => 레스토랑 테이블에 index를 생성한다.
- ex)CREATE INDEX IDX_restaurant_INCREASE ON restaurant 
-(restaurantName);
+답안 작성 =>
+정답(선생님)은 foodNo에 index(인덱싱)를 해야 한다.
 */
 
 DELETE FROM food
@@ -31,5 +30,5 @@ WHERE foodNo = 30;
 음식 테이블에 30번 데이터를 지울 방법은 무엇일까?
 
 답안 작성 => 
-
+정답(선생님)은 on cascade를 해줘야한다.
 */
