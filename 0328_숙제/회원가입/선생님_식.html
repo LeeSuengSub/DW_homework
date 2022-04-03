@@ -11,10 +11,18 @@
     <div class="container">
       <div class="form-wrapper">
         <h3>스똬벅스 회원가입</h3>
-        <input type="" placeholder="회원이름을 입력해주세요..." />
-        <input type="" placeholder="사용할 닉네임을 입력해주세요..." />
+        <input id="name" type="" placeholder="회원이름을 입력해주세요..." />
+        <input
+          id="nickName"
+          type=""
+          placeholder="사용할 닉네임을 입력해주세요..."
+        />
         <div class="email-box">
-          <input type="text" placeholder="이메일을 입력해주세요..." />
+          <input
+            id="email"
+            type="text"
+            placeholder="이메일을 입력해주세요..."
+          />
           <span>@</span>
           <select id="emailList">
             <option value="none" selected>직접입력</option>
@@ -25,15 +33,16 @@
           </select>
         </div>
         <input
+          id="phone"
           type="text"
           placeholder="연락처를 입력해주세요...(번호만 입력하세요)"
         />
         <div class="question-box">
           <span>회원가입에 동의하나요?</span>
-          <input type="checkbox" />
+          <input id="isCheck" type="checkbox" />
         </div>
         <div class="join-btn">
-          <button type="button">회원 가입</button>
+          <button id="btn" type="button">회원 가입</button>
         </div>
       </div>
     </div>
@@ -55,63 +64,97 @@
         모든 조건을 만족하고 회원가입 버튼을 누르면
         input데이터를 json으로 만들어 console.log에 출력하시오.
       */
-      $("#button").click(function () {
-        var jsonParam = {};
-        jsonParam.phone = "010";
-        var elementID = "iphone";
-        var money = 1000;
-        // jsonParam.elementID = '010';
-        jsonParam[elementID] = "010"; //json에 elementID를 iphone으로 바꾸는 방법.
-        jsonParam = { phone: "010", elementID: "010" };
+      $("#btn").click(function () {
+        var jsonData = {};
+        var formWrapperChildren = $(".form-wrapper").children();
 
-        var formWrapper = $(".form-wrapper").children();
-        console.log($(".form-wrapper").children());
-        for (var i = 1; i < formWrapper.length; i++) {
-          var elementID = formWrapper[i].id;
-          var elementValue = "";
-          if (formWrapper[i].nodeName === "INPUT") {
-            var element = $("#" + elementID).val();
-            if (elementValue === "") {
-              alert("내용을 입력해주세요!");
-              $("#" + elementID).focus();
+        for (var i = 0; i < formWrapperChildren.length; i++) {
+          var inputId = formWrapperChildren[i].id; //input id 가져오기
+          var inputValue = formWrapperChildren[i].value.trim(); //input value 가져오기(내 PC에서는 trim 오류남)
+
+          if (
+            formWrapperChildren[i].nodeName === "INPUT" &&
+            inputValue === ""
+          ) {
+            //.form-wrapper 자식 태그 중 INPUT만 체크
+            alert("내용을 확인해주세요!~");
+            $("#" + inputId).focus();
+            return false;
+          }
+
+          if (inputId === "phone") {
+            var phoneNumber = doFilterPhoneNumber(inputValue); //핸드폰 번호 '-' 제거
+            jsonData[inputId] = phoneNumber;
+          }
+
+          if (inputId === "name" || inputId === "nickName") {
+            const MAX_LEN = 20; //20글자 제한
+            if (!doCheckWordLen(inputValue, MAX_LEN)) {
+              //글자 제한
+              alert("이름과 닉네임은 20글자 이하로 작성해주세요.");
+              $("#" + inputId).focus();
               return false;
             }
+            if (!doCheckKorWord(inputValue)) {
+              //한글 체크
+              alert("한글만 입력해주세요.");
+              $("#" + inputId).focus();
+              return false;
+            }
+            jsonData[inputId] = inputValue;
           }
-          if (
-            (formWrapper[i].id === "Name" ||
-              formWrapper[i].id === "Nickname") &&
-            elementValue.length >= 20
-          ) {
-            alert("20글자 제한");
-            return false;
-          }
-          if (
-            formWrapper[i].id === "Name" ||
-            formWrapper[i].id === "Nickname"
-          ) {
-            //정규표현식 한글 로직 추가
-            return false;
-          }
-          if (formWrapper[i].id === "call") {
-            elementValue = elementValue;
-          }
-          var email = $("#email").val().trim();
-          if (email === "") {
-            alert("내용을 입력해주세요.");
-            $("#email").focus();
-            return false;
-          }
-          var emailCompany = $("#emailList option:selected").val();
-          if (emailCompany === "none") {
-            alert("내용을 확인해주세요.");
-            $("#emailList").focus();
-            return false;
-          }
-          jsonParam.email = email + "@" + emailCompany;
-          console.log("hello World");
-          doJoin(jsonParam);
+        } //end for
+
+        var email = $("#email").val(); //이메일 체크
+        if (email === "") {
+          alert("내용을 확인해주세요!~");
+          $("#email").focus();
+          return false;
         }
+
+        var emailCompany = $("#emailList option:selected").val(); //이메일 주소 체크
+        if (emailCompany === "none") {
+          alert("내용을 확인해주세요!~");
+          $("#emailList").focus();
+          return false;
+        }
+
+        var isCheck = $("#isCheck").is(":checked"); //회원가입 동의 체크
+        if (!isCheck) {
+          alert("내용을 확인해주세요!~");
+          $("#isCheck").focus();
+          return false;
+        }
+
+        jsonData.email = email + "@" + emailCompany;
+        jsonData.isCheck = isCheck;
+        doSubmit(jsonData); //json 출력
       });
+
+      function doFilterPhoneNumber(phoneNumber) {
+        //폰번호 중 '-' 제거 함수
+        return phoneNumber.replace(/-/g, "");
+      }
+
+      function doCheckWordLen(word, len) {
+        //글자 제한 함수
+        var isCheck = true;
+        if (word.length > len) {
+          isCheck = false;
+        }
+        return isCheck;
+      }
+
+      function doCheckKorWord(word) {
+        //한글 체크
+        var regex = /^[가-힣]+$/;
+        return regex.test(word);
+      }
+
+      function doSubmit(jsonData) {
+        //서버에 전송할 json 전송
+        console.log(jsonData);
+      }
     </script>
   </body>
 </html>
