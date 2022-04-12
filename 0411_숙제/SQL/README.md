@@ -14,10 +14,10 @@ customer_id ,
 customer_name ,
 grade
 from customer
-where is_use ="false"
+where is_use =false
 ```
 
-- 디비버에서 false 대신에 1로 입력해야 나옴.  
+- 디비버에서 false 대신에 1로 입력해도 나옴.  
   0: true,  
   1: false
 
@@ -27,7 +27,7 @@ customer_id ,
 customer_name ,
 grade
 from customer
-where is_use ="1"
+where is_use =0
 ```
 
 2. '2021-12-09' 이후에 가입한 고객 수 조회.
