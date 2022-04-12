@@ -27,7 +27,7 @@ customer_id ,
 customer_name ,
 grade
 from customer
-where is_use =0
+where is_use =1
 ```
 
 2. '2021-12-09' 이후에 가입한 고객 수 조회.
