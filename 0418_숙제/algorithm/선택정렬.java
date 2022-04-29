@@ -33,12 +33,12 @@ public class SelecttionSort {
 					isChange = true; //최솟값이 있음!
 				}
 			}
+			if(!isChange) continue;
 			if(isChange) {
 				int temp = array[i];
 				array[i] = min;
 				array[index] = temp;
 			}
-            if(!isChange) break; // 최솟값이 없다고 판단 정렬되어 있음. break로 for문 중단
 		}
 		//변수가 많은 코드를 디버깅 코드라고 한다.
 		System.out.println(Arrays.toString(array));
